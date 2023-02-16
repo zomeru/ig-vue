@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
-import { Button } from "ant-design-vue";
+
+import { Nav } from "@/components";
 </script>
 
 <template>
   <main>
-    <Button type="primary">Button</Button>
+    <Nav />
   </main>
 </template>
 
