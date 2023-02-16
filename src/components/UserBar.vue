@@ -8,23 +8,23 @@ type ProfileProps = {
   };
 };
 
-const { username, userInfo } = defineProps<ProfileProps>();
+const props = defineProps<ProfileProps>();
 </script>
 
 <template>
   <div class="userbar-container">
     <div class="top-content">
-      <ATypographyTitle :level="2">{{ username }}</ATypographyTitle>
+      <ATypographyTitle :level="2">{{ props.username }}</ATypographyTitle>
     </div>
     <div class="bottom-content">
       <ATypographyTitle :level="5"
-        >{{ userInfo.posts }} posts</ATypographyTitle
+        >{{ props.userInfo.posts }} posts</ATypographyTitle
       >
       <ATypographyTitle :level="5"
-        >{{ userInfo.followers }} followers</ATypographyTitle
+        >{{ props.userInfo.followers }} followers</ATypographyTitle
       >
       <ATypographyTitle :level="5"
-        >{{ userInfo.following }} following</ATypographyTitle
+        >{{ props.userInfo.following }} following</ATypographyTitle
       >
     </div>
   </div>

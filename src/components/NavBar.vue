@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-import Container from "./Container.vue";
+import AppContainer from "./AppContainer.vue";
 import AuthModal from "./AuthModal.vue";
 
 const router = useRouter();
@@ -9,7 +9,7 @@ const router = useRouter();
 const search = ref("");
 const isAuthenticated = ref(false);
 
-const onSearch = (value: string) => {
+const onSearch = () => {
   if (search.value) {
     router.push(`/profile/${search.value}`);
     search.value = "";
@@ -19,7 +19,7 @@ const onSearch = (value: string) => {
 
 <template>
   <ALayoutHeader>
-    <Container>
+    <AppContainer>
       <div class="nav-container">
         <div class="right-content">
           <RouterLink to="/">Instagram</RouterLink>
@@ -39,7 +39,7 @@ const onSearch = (value: string) => {
           <AButton type="primary">Log out</AButton>
         </div>
       </div>
-    </Container>
+    </AppContainer>
   </ALayoutHeader>
 </template>
 

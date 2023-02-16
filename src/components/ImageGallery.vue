@@ -6,12 +6,12 @@ type ImageGalleryProps = {
   }[];
 };
 
-const { posts } = defineProps<ImageGalleryProps>();
+const props = defineProps<ImageGalleryProps>();
 </script>
 
 <template>
   <div class="image-gallery-container">
-    <img v-for="post in posts" :key="post.id" :src="post.image" />
+    <img v-for="post in props.posts" :key="post.id" :src="post.image" />
   </div>
 </template>
 

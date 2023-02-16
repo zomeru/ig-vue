@@ -11,9 +11,7 @@ const username = ref<string>("");
 const email = ref<string>("");
 const password = ref<string>("");
 
-const { isLogin } = defineProps<AuthModalProps>();
-
-console.log("props", isLogin);
+const props = defineProps<AuthModalProps>();
 
 const showModal = () => {
   visible.value = true;
@@ -24,7 +22,7 @@ const handleOk = (e: MouseEvent) => {
   visible.value = false;
 };
 
-const title = isLogin ? "Log in" : "Sign up";
+const title = props.isLogin ? "Log in" : "Sign up";
 </script>
 
 <template>

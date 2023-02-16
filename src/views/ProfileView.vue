@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Profile } from "@/components";
+import { UserProfile } from "@/components";
 </script>
 
 <template>
   <main>
-    <Profile />
+    <UserProfile />
   </main>
 </template>

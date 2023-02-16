@@ -8,16 +8,16 @@ type PostProps = {
   };
 };
 
-const { post } = defineProps<PostProps>();
+const props = defineProps<PostProps>();
 </script>
 
 <template>
   <ACard hoverable style="width: 240px" class="card">
     <template #cover>
-      <img alt="example" :src="post.image" />
+      <img alt="example" :src="props.post.image" />
     </template>
-    <ACardMeta :title="post.username">
-      <template #description>{{ post.caption }}</template>
+    <ACardMeta :title="props.post.username">
+      <template #description>{{ props.post.caption }}</template>
     </ACardMeta>
   </ACard>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Container from "./Container.vue";
-import Card from "./Card.vue";
+import AppContainer from "./AppContainer.vue";
+import PostCard from "./PostCard.vue";
 
 const data = [
   {
@@ -25,11 +25,11 @@ const data = [
 </script>
 
 <template>
-  <Container>
+  <AppContainer>
     <div class="timeline-container">
-      <Card v-for="post in data" :key="post.id" :post="post" />
+      <PostCard v-for="post in data" :key="post.id" :post="post" />
     </div>
-  </Container>
+  </AppContainer>
 </template>
 
 <style scoped>

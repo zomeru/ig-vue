@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Timeline } from "@/components";
+import { UserTimeline } from "@/components";
 </script>
 
 <template>
   <main>
-    <Timeline />
+    <UserTimeline />
   </main>
 </template>

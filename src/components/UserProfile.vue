@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Container from "./Container.vue";
+import AppContainer from "./AppContainer.vue";
 import ImageGallery from "./ImageGallery.vue";
 import UserBar from "./UserBar.vue";
 </script>
 
 <template>
-  <Container>
+  <AppContainer>
     <div class="profile-container">
       <UserBar
         username="zomeru"
@@ -24,7 +24,7 @@ import UserBar from "./UserBar.vue";
         ]"
       />
     </div>
-  </Container>
+  </AppContainer>
 </template>
 
 <style scoped>

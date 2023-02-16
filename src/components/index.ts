@@ -1,19 +1,19 @@
-import Nav from "./Nav.vue";
-import Container from "./Container.vue";
+import NavBar from "./NavBar.vue";
+import AppContainer from "./AppContainer.vue";
 import AuthModal from "./AuthModal.vue";
-import Card from "./Card.vue";
-import Timeline from "./Timeline.vue";
-import Profile from "./Profile.vue";
+import PostCard from "./PostCard.vue";
+import UserTimeline from "./UserTimeline.vue";
+import UserProfile from "./UserProfile.vue";
 import UserBar from "./UserBar.vue";
 import ImageGallery from "./ImageGallery.vue";
 
 export {
-  Nav,
-  Container,
+  NavBar,
+  AppContainer,
   AuthModal,
-  Card,
-  Timeline,
-  Profile,
+  PostCard,
+  UserTimeline,
+  UserProfile,
   UserBar,
   ImageGallery,
 };
