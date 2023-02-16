@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import Container from "./Container.vue";
+import AuthModal from "./AuthModal.vue";
+
+const router = useRouter();
 
 const search = ref("");
+const isAuthenticated = ref(false);
 
 const onSearch = (value: string) => {
-  console.log(value);
+  if (search.value) {
+    router.push(`/profile/${search.value}`);
+    search.value = "";
+  }
 };
 </script>
 
@@ -23,9 +30,13 @@ const onSearch = (value: string) => {
             @search="onSearch"
           />
         </div>
-        <div class="left-content">
-          <AButton type="primary">Sign up</AButton>
-          <AButton type="primary">Log in</AButton>
+        <div class="left-content" v-if="isAuthenticated">
+          <AuthModal :isLogin="true" />
+          <AuthModal :isLogin="false" />
+        </div>
+        <div class="left-content" v-else>
+          <AButton type="primary">Profile</AButton>
+          <AButton type="primary">Log out</AButton>
         </div>
       </div>
     </Container>
@@ -45,6 +56,11 @@ const onSearch = (value: string) => {
 
 .right-content a {
   margin-right: 15px;
+}
+
+.left-content {
+  display: flex;
+  align-items: center;
 }
 
 .left-content button {

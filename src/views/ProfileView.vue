@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Timeline } from "@/components";
+import { Profile } from "@/components";
 </script>
 
 <template>
   <main>
-    <Timeline />
+    <Profile />
   </main>
 </template>
