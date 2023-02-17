@@ -19,6 +19,8 @@ declare module '@vue/runtime-core' {
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     AModal: typeof import('ant-design-vue/es')['Modal']
     AppContainer: typeof import('./src/components/AppContainer.vue')['default']
+    ASpin: typeof import('ant-design-vue/es')['Spin']
+    ATypographyText: typeof import('ant-design-vue/es')['TypographyText']
     ATypographyTitle: typeof import('ant-design-vue/es')['TypographyTitle']
     AuthModal: typeof import('./src/components/AuthModal.vue')['default']
     Card: typeof import('./src/components/Card.vue')['default']

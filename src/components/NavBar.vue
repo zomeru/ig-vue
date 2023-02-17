@@ -30,7 +30,7 @@ const onSearch = () => {
             @search="onSearch"
           />
         </div>
-        <div class="left-content" v-if="isAuthenticated">
+        <div class="left-content" v-if="!isAuthenticated">
           <AuthModal :isLogin="true" />
           <AuthModal :isLogin="false" />
         </div>
