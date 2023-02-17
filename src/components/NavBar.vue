@@ -3,17 +3,25 @@ import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import AppContainer from "./AppContainer.vue";
 import AuthModal from "./AuthModal.vue";
+import { useUserStore } from "@/stores/users";
+import { storeToRefs } from "pinia";
 
+const userStore = useUserStore();
+const { loadingUser, user } = storeToRefs(userStore);
 const router = useRouter();
 
 const search = ref("");
-const isAuthenticated = ref(false);
 
 const onSearch = () => {
   if (search.value) {
     router.push(`/profile/${search.value}`);
     search.value = "";
   }
+};
+
+const handleLogout = async () => {
+  await userStore.handleLogout();
+  router.push("/");
 };
 </script>
 
@@ -28,15 +36,21 @@ const onSearch = () => {
             placeholder="Search..."
             style="width: 200px"
             @search="onSearch"
+            aria-autocomplete="none"
           />
         </div>
-        <div class="left-content" v-if="!isAuthenticated">
-          <AuthModal :isLogin="true" />
-          <AuthModal :isLogin="false" />
+        <div v-if="!loadingUser" class="content">
+          <div class="left-content" v-if="!user">
+            <AuthModal :isLogin="true" />
+            <AuthModal :isLogin="false" />
+          </div>
+          <div class="left-content" v-else>
+            <AButton type="primary">Profile</AButton>
+            <AButton type="primary" @click="handleLogout">Log out</AButton>
+          </div>
         </div>
-        <div class="left-content" v-else>
-          <AButton type="primary">Profile</AButton>
-          <AButton type="primary">Log out</AButton>
+        <div v-else>
+          <ASpin />
         </div>
       </div>
     </AppContainer>
@@ -47,6 +61,11 @@ const onSearch = () => {
 .nav-container {
   display: flex;
   justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  align-items: center;
 }
 
 .right-content {

@@ -31,10 +31,16 @@ const clearUserCredentialsInput = () => {
 };
 
 const handleOk = async (e: MouseEvent) => {
-  await userStore.handleSignup(userCredentials);
+  if (props.isLogin) {
+    await userStore.handleLogin({
+      email: userCredentials.email,
+      password: userCredentials.password,
+    });
+  } else {
+    await userStore.handleSignup(userCredentials);
+  }
 
   if (user.value) {
-    console.log("user", user.value);
     visible.value = false;
     clearUserCredentialsInput();
   }
@@ -68,7 +74,11 @@ const handleCancel = (e: MouseEvent) => {
           >Submit</AButton
         >
       </template>
-      <div v-if="!loading" class="input-container">
+      <div
+        v-if="!loading"
+        class="input-container"
+        :style="{ height: props.isLogin ? '75px' : '120px' }"
+      >
         <AInput
           class="input"
           v-if="!isLogin"
@@ -87,7 +97,11 @@ const handleCancel = (e: MouseEvent) => {
           type="password"
         />
       </div>
-      <div v-else class="spinner">
+      <div
+        v-else
+        class="spinner"
+        :style="{ height: props.isLogin ? '75px' : '120px' }"
+      >
         <ASpin />
       </div>
       <ATypographyText v-if="errorMessage" type="danger">{{
@@ -105,14 +119,9 @@ const handleCancel = (e: MouseEvent) => {
   margin-bottom: 10px;
 }
 
-.input-container {
-  height: 120px;
-}
-
 .spinner {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 120px;
 }
 </style>

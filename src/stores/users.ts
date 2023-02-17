@@ -6,13 +6,16 @@ interface User {
   id: number;
   username: string;
   email: string;
+  date: string;
 }
 
 export interface Credentials {
-  username: string;
   email: string;
   password: string;
+  username: string;
 }
+
+type LoginCredentials = Pick<Credentials, "email" | "password">;
 
 const validateEmail = (email: string) => {
   return String(email)
@@ -25,9 +28,52 @@ const validateEmail = (email: string) => {
 export const useUserStore = defineStore("users", () => {
   const user = ref<User | null>(null);
   const loading = ref(false);
+  const loadingUser = ref(false);
   const errorMessage = ref("");
 
-  const handleLogin = async (email: string, password: string) => {};
+  const isDev = process.env.NODE_ENV !== "development";
+
+  const handleLogin = async (credentials: LoginCredentials) => {
+    const { email, password } = credentials;
+
+    if (!validateEmail(email)) {
+      errorMessage.value = "Email is invalid";
+      return;
+    }
+
+    if (!password.length) {
+      errorMessage.value = "Password is required";
+      return;
+    }
+
+    errorMessage.value = "";
+    loading.value = true;
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        errorMessage.value = error.message;
+        return;
+      }
+
+      const { data: newUser } = await supabase
+        .from("users")
+        .select()
+        .eq("email", email)
+        .single();
+
+      user.value = newUser;
+    } catch (err) {
+      if (isDev) console.log("err", err);
+      errorMessage.value = "Something went wrong! Please try again.";
+    } finally {
+      loading.value = false;
+    }
+  };
 
   const handleSignup = async (credentials: Credentials) => {
     const { email, username, password } = credentials;
@@ -72,7 +118,7 @@ export const useUserStore = defineStore("users", () => {
         return;
       }
 
-      const { data } = await supabase
+      const { data: newUser } = await supabase
         .from("users")
         .insert({
           username,
@@ -81,21 +127,54 @@ export const useUserStore = defineStore("users", () => {
         .select()
         .single();
 
-      user.value = {
-        id: data.id,
-        username: data.username,
-        email: data.email,
-      };
+      user.value = newUser;
     } catch (err) {
-      console.log("err", err);
+      if (isDev) console.log("err", err);
       errorMessage.value = "Something went wrong! Please try again.";
     } finally {
       loading.value = false;
     }
   };
-  const handleLogout = async () => {};
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      user.value = null;
 
-  const getUser = async () => {};
+      const userLocalStorage = localStorage.getItem(
+        "sb-cybjwcylxbclrswgmcia-auth-token"
+      );
+
+      if (userLocalStorage) {
+        localStorage.removeItem("sb-cybjwcylxbclrswgmcia-auth-token");
+      }
+    } catch (err) {
+      if (isDev) console.log("err", err);
+    }
+  };
+
+  const getUser = async () => {
+    loadingUser.value = true;
+    try {
+      const { data } = await supabase.auth.getUser();
+
+      if (data?.user) {
+        const { data: newUser } = await supabase
+          .from("users")
+          .select()
+          .eq("email", data.user.email)
+          .single();
+
+        if (user) {
+          console.log({ newUser });
+          user.value = newUser;
+        }
+      }
+    } catch (err) {
+      if (isDev) console.log("err", err);
+    } finally {
+      loadingUser.value = false;
+    }
+  };
 
   const clearErrorMessage = () => {
     errorMessage.value = "";
@@ -104,6 +183,7 @@ export const useUserStore = defineStore("users", () => {
   return {
     user,
     loading,
+    loadingUser,
     errorMessage,
     handleLogin,
     handleSignup,
