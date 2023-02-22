@@ -6,6 +6,7 @@ import UserTimeline from "./UserTimeline.vue";
 import UserProfile from "./UserProfile.vue";
 import UserBar from "./UserBar.vue";
 import ImageGallery from "./ImageGallery.vue";
+import UploadPhotoModal from "./UploadPhotoModal.vue";
 
 export {
   NavBar,
@@ -16,4 +17,5 @@ export {
   UserProfile,
   UserBar,
   ImageGallery,
+  UploadPhotoModal,
 };

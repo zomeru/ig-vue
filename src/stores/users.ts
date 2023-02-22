@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { supabase } from "@/utils/supabase";
 
-interface User {
+export interface User {
   id: number;
   username: string;
   email: string;
@@ -165,7 +165,6 @@ export const useUserStore = defineStore("users", () => {
           .single();
 
         if (user) {
-          console.log({ newUser });
           user.value = newUser;
         }
       }
