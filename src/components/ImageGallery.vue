@@ -11,6 +11,7 @@ export type ImageGalleryProps = {
 };
 
 const props = defineProps<ImageGalleryProps>();
+const { VITE_SUPABASE_IMAGE_URL } = import.meta.env;
 </script>
 
 <template>
@@ -18,7 +19,7 @@ const props = defineProps<ImageGalleryProps>();
     <img
       v-for="post in props.posts"
       :key="post.id"
-      :src="`https://cybjwcylxbclrswgmcia.supabase.co/storage/v1/object/public/images/${post.img_url}`"
+      :src="`${VITE_SUPABASE_IMAGE_URL}/${post.img_url}`"
       :alt="post.caption"
     />
   </div>

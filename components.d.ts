@@ -27,6 +27,7 @@ declare module '@vue/runtime-core' {
     Card: typeof import('./src/components/Card.vue')['default']
     Container: typeof import('./src/components/Container.vue')['default']
     ImageGallery: typeof import('./src/components/ImageGallery.vue')['default']
+    IntersectionObserver: typeof import('./src/components/IntersectionObserver.vue')['default']
     Nav: typeof import('./src/components/Nav.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
     PostCard: typeof import('./src/components/PostCard.vue')['default']

@@ -90,7 +90,7 @@ const handleUploadChange = (e: Event) => {
         />
         <AInput
           :maxLength="50"
-          v-model="caption"
+          v-model:value="caption"
           placeholder="Caption..."
         />
         <ATypography v-if="errorMessage" type="danger">{{
